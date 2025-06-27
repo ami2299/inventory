@@ -1,13 +1,12 @@
 plugin: vmware.vmware_rest.vcenter_vm_inventory
 
 hostname: biicvcenter1.biic.local
-
-validate_certs: false  # Mets à true si ton vCenter a un certificat CA valide
+validate_certs: false
 
 groups:
   powered_on: power_state == 'POWERED_ON'
-  linux_guests: "'linux' in guest_os | lower | default('')"
-  windows_guests: "'windows' in guest_os | lower | default('')"
+  windows_vms: "'windows' in guest_os | lower | default('')"
+  linux_vms: "'linux' in guest_os | lower | default('')"
 
 compose:
   ansible_host: networks[0].ip_address | default('127.0.0.1')
