@@ -1,0 +1,6 @@
+---
+- name: Dummy Playbook
+  hosts: localhost
+  tasks:
+    - debug:
+        msg: "Project OK"
