@@ -1,0 +1,7 @@
+---
+version: 1
+
+dependencies:
+  galaxy:
+    collections:
+      - name: vmware.vmware_rest
