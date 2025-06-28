@@ -1,55 +1,23 @@
-# inventory/vmware_vms.yml
-# =========================
-# Inventaire dynamique VMware vSphere
-# Plugin officiel : vmware.vmware.vms
-# Sépare les secrets et paramètres variables !
+plugin: vmware.vmware.vmware_vm_inventory
 
-plugin: vmware.vmware.vms
-
-# 🔑 Paramètres d'accès, TOUJOURS injectés via credential AAP
 hostname: "{{ vcenter_hostname }}"
 username: "{{ vcenter_username }}"
 password: "{{ vcenter_password }}"
-
-# Désactive la vérification SSL (à sécuriser en prod)
 validate_certs: false
 
-# Filtrer : ici toutes les VMs
-# Tu peux filtrer sur les dossiers, clusters, etc.
 with_tags: false
 
-# Grouper les machines par état d'alimentation
+properties:
+  - config
+  - guest
+  - summary
+  - runtime
+
 groups:
   powered_on:
     filters:
       - config.template is false
       - summary.runtime.powerState == "poweredOn"
-  powered_off:
-    filters:
-      - config.template is false
-      - summary.runtime.powerState == "poweredOff"
 
-# Définir quel champ utiliser pour l'adresse IP
 compose:
   ansible_host: guest.ipAddress
-
-# Activer la collecte des facts étendus (si besoin)
-properties:
-  - config
-  - guest
-  - runtime
-  - summary
-
-# Contrôle strict : stop si doublons
-strict: true
-
-# Définir les variables d'hôtes personnalisées
-keyed_groups:
-  - key: guest.guestId
-    prefix: os
-  - key: config.hardware.numCPU
-    prefix: cpu
-
-# Exclure les templates (important)
-filters:
-  - config.template is false
