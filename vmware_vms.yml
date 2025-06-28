@@ -1,8 +1,8 @@
 plugin: vmware.vmware.vms
 
-hostname: "{{ vcenter_hostname }}"
-username: "{{ vcenter_username }}"
-password: "{{ vcenter_password }}"
+hostname: "{{ host }}"
+username: "{{ username }}"
+password: "{{ password }}"
 validate_certs: false
 
 with_tags: false
