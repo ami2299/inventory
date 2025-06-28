@@ -1,4 +1,4 @@
-plugin: vmware.vmware.vmware_vm_inventory
+plugin: vmware.vmware.vms
 
 hostname: "{{ vcenter_hostname }}"
 username: "{{ vcenter_username }}"
