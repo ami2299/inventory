@@ -1,12 +1,13 @@
-plugin: community.vmware.vmware_vm_inventory
+plugin: vmware.vmware.vms
 hostname: biicvcenter1.biic.local
 validate_certs: false
-
-groups:
-  powered_on: power_state == 'POWERED_ON'
-  linux_guests: "'linux' in guest_os | lower | default('')"
-  windows_guests: "'windows' in guest_os | lower | default('')"
-
+username: "{{ vcenter_username }}"
+password: "{{ vcenter_password }}"
+properties:
+  - config.name
+  - config.uuid
+  - guest.ipAddress
 compose:
-  ansible_host: networks[0].ip_address | default('127.0.0.1')
-
+  ansible_host: guest.ipAddress
+filters:
+  - summary.runtime.powerState == "poweredOn"
