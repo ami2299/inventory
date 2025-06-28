@@ -1,7 +1,4 @@
----
-version: 1
-
+version: 3
 dependencies:
-  galaxy:
-    collections:
-      - name: vmware.vmware_rest
+  python: requirements.txt
+  galaxy: requirements.yml
